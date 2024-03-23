@@ -1,8 +1,9 @@
 # Modern KORAD
- Update your KORAD using the LCD display and the touch panel.
- [![Watch the video](https://img.youtube.com/vi/N-qjmBWFpcI/hqdefault.jpg)](https://www.youtube.com/embed/N-qjmBWFpcI)
- https://youtu.be/N-qjmBWFpcI
+### Update your KORAD using the LCD display and the touch panel.
+https://youtu.be/N-qjmBWFpcI
 
+ [![Watch the video](https://img.youtube.com/vi/N-qjmBWFpcI/hqdefault.jpg)](https://www.youtube.com/embed/N-qjmBWFpcI)
+ 
 # How to make modern KORAD
 You actually need to replace the display board with a new LCD. The project is based on the low cost ESP32 development board. The board WT32-SC01 with 3.5 inch 320x480 capacitive multi-touch LCD Screen and built-in Wifi. 
 Also you need an external wifi antenna and a DC-DC converter (12v -> 5v, 1A).
@@ -16,10 +17,10 @@ There are two options for the board:
 <details>
 <summary>Click to view where to buy</summary>
 Aliexpress pages: 
-https://aliexpress.ru/item/1005003745843708.html
-https://aliexpress.ru/item/1005004267336768.html
-https://aliexpress.ru/item/1005003297175908.html
-https://aliexpress.ru/item/1005003880321464.html
++ https://aliexpress.ru/item/1005003745843708.html
++ https://aliexpress.ru/item/1005004267336768.html
++ https://aliexpress.ru/item/1005003297175908.html
++ https://aliexpress.ru/item/1005003880321464.html
 </details>
 
 ## How to flash the board (2 ways)
@@ -33,21 +34,23 @@ Connect USB cable to your development board, run the application, select COM por
 
 ## How it works
 The project is suitable for all models KA3005D and KA3005P. Models without programmable control (KA3005D) will work, but you will not be able to control the current values and voltage.
+
 Although KORAD3005D is not intended for programmable control, nevertheless, some of the devices can work like KORAD3005P. Under the cover on the printed circuit board there is a connector for communication via UART. Let's call such devices that can be controlled via UART KORAD3005DP.
 To see the difference between KORAD3005D and KORAD3005DP, just listen to it. Watch this short video and you will hear the difference.
+
 https://youtu.be/TDWt2rKNsIM
 
 ## Schematics
 All schematics can be found in the **Schematics** folder.
-**J4** (korad main board) connecting display board
-**J9** (korad main board) connecting interface board 
++ **J4** (korad main board) connecting display board
++ **J9** (korad main board) connecting interface board 
 ![KORAD main board](/Pictures/korad_inner.jpg)
 ![My main board](/Pictures/my_board.JPG)
 ![Connection](/Schematics/Schematic_WT32_SC01.jpg)
 
 ## Programming
-You can change the user inteface using SquareLine Studio. The UI project is in the **SquareLine** folder. 
-https://squareline.io/
+You can change the user inteface using [SquareLine Studio](https://squareline.io/). The UI project is in the **SquareLine** folder. 
+
 Change File->Project Settings, FILE EXPORT, Project Export Root and UI File Export Path to your correct folders.
 <details>
 <summary>Click to view SquareLine Studio Project Settings</summary>
@@ -63,13 +66,13 @@ On the third screen you can change the oscilloscope mode:
 
 ### Settings screen
 ![Settings Screen](/Pictures/SettingsScreen.jpg)
-Wi-Fi. ON or OFF. If ON you can enter wifi settings.
-Energy auto reset. If ON it resets the energy and time counters every time when the output is on.
-Programmable KA3005P/DP.  If ON Lets programmable interface.
-Block when output is ON.  If OFF Lets programmable interface when the output is on.
-Exterior. Enters the exterior screen.
-Screensaver. If ON dim the backlight in some minutes after the last usage.
-Beeper. The buzzer volume.
++ Wi-Fi. ON or OFF. If ON you can enter wifi settings.
++ Energy auto reset. If ON it resets the energy and time counters every time when the output is on.
++ Programmable KA3005P/DP.  If ON Lets programmable interface.
++ Block when output is ON.  If OFF Lets programmable interface when the output is on.
++ Exterior. Enters the exterior screen.
++ Screensaver. If ON dim the backlight in some minutes after the last usage.
++ Beeper. The buzzer volume.
 
 ### Exterior Screen
 ![Exterior Screen](/Pictures/ExteriorScreen.jpg)
