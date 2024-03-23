@@ -1,0 +1,16 @@
+{
+  "codename": "Segment38",
+  "ttf_path": "\\assets\\DSEG_Classic_Bold_modif.otf",
+  "bin_path": "\\assets\\ui_font_Segment38.bin",
+  "c_path": "\\assets\\ui_font_Segment38.c",
+  "cfg_path": "\\assets\\ui_font_Segment38.fcfg",
+  "size": 38,
+  "bpp": 1,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x3A"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}

@@ -1,0 +1,16 @@
+{
+  "codename": "Electro38",
+  "ttf_path": "\\assets\\Electro3.ttf",
+  "bin_path": "\\assets\\ui_font_Electro38.bin",
+  "c_path": "\\assets\\ui_font_Electro38.c",
+  "cfg_path": "\\assets\\ui_font_Electro38.fcfg",
+  "size": 38,
+  "bpp": 1,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x39"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}

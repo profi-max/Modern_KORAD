@@ -1,0 +1,914 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>KORAD WebUI</title>
+        <link rel="icon" type="image/x-icon" href="./favicon.ico">
+        <style>
+            html {
+                font-family: sans-serif;
+                color: white;
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                background-color: rgba(0, 0, 0, 0) !important;
+                font-size: 20px;
+            }
+
+            .container {
+                position: absolute;
+                left: 0px;
+                right: 0px;
+                width: 450px;
+                height: 800px;
+                margin: 10px auto;
+            }
+
+            .title {
+                font-size: 30px;
+                font-family: cursive;
+                text-align: center;
+                width: 450px;
+            }
+
+            .panel {
+                position: absolute;
+                top: 20px;
+                width: 450px;
+                height: 700px;
+                background-color: #222;
+                border-radius: 20px / 10px;
+            }
+
+            .logo {
+                color: rgb(113, 113, 113);
+                position: absolute;
+                top: 15px;
+                left: 20px;
+                font-size: 85%;
+            }
+
+            .model {
+                position: absolute;
+                top: 15px;
+                right: 42px;
+                font-size: 80%;
+                font-weight: bold;
+                color: rgba(0, 58, 0, 1);
+            }
+
+            .panel-edge {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                border-right-color: LightGray;
+                border-right-width: 5px;
+                border-right-style: solid;
+                border-left-color: DarkGray;
+                border-left-width: 5px;
+                border-left-style: solid;
+                border-radius: 20px/10px;
+                -webkit-box-shadow: 15px -15px 10px 10px rgba(0, 0, 0, 0.5);
+                box-shadow: 15px -15px 10px 10px rgba(0, 0, 0, 0.5);
+            }
+
+            .screen-edge {
+                position: absolute;
+                top: 40px;
+                left: 15px;
+                width: 420px;
+                height: 180px;
+                margin: 0;
+                padding: 0;
+                border-top: 6px solid;
+                border-right: 5px solid rgba(0, 84, 37, 1);
+                border-bottom: 0 solid;
+                border-left: 5px solid rgba(0, 58, 0, 1);
+                color: rgba(0, 0, 0, 0.9);
+                background: #222A21;
+            }
+
+            .panel-face {
+                background-repeat: repeat;
+                position: absolute;
+                top: 250px;
+                left: 5px;
+                width: 440px;
+                height: 430px;
+                -webkit-box-shadow: 10px 0 10px 10px rgba(0, 0, 0, 0.5) inset, -10px 0 10px 0 rgba(255, 255, 255, 0.05) inset, -20px 0 20px 10px rgba(255, 255, 255, 0.05) inset;
+                box-shadow: 10px 0 10px 10px rgba(0, 0, 0, 0.5) inset, -10px 0 10px 0 rgba(255, 255, 255, 0.05) inset, -20px 0 20px 10px rgba(255, 255, 255, 0.05) inset;
+            }
+
+                .panel-face:after {
+                    position: absolute;
+                    width: 436px;
+                    content: " ";
+                    top: 425px;
+                    height: 0px;
+                    border-top: 15px solid rgb(0, 0, 0);
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                }
+
+            .button {
+                display: inline-block;
+                width: 65px;
+                height: 35px;
+                position: absolute;
+                cursor: pointer;
+                margin: 0;
+                padding: 0px;
+                border: none;
+                -webkit-border-radius: 6px / 10px;
+                border-radius: 6px / 10px;
+                font: normal 20px/1 "Aldrich", Helvetica, sans-serif;
+                text-align: center;
+                color: LightGray;
+                background-image: -webkit-linear-gradient(-45deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                background-image: -moz-linear-gradient(135deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                background-image: linear-gradient(135deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                -webkit-box-shadow: -2px 2px 3px 3px rgba(0, 0, 0, 0.79), -2px 2px 1px 2px rgba(255, 255, 255, 0.1) inset, 4px -4px 1px 0 rgba(0, 0, 0, 0.5) inset;
+                box-shadow: -2px 2px 3px 3px rgba(0, 0, 0, 0.79), -2px 2px 1px 2px rgba(255, 255, 255, 0.1) inset, 4px -4px 1px 0 rgba(0, 0, 0, 0.5) inset;
+            }
+
+                .button:active {
+                    height: 33px;
+                    margin: 2px 0 0;
+                }
+            /* Button Colors */
+
+            .onoff {
+                color: LightGray;
+                font-size: 16px;
+            }
+
+            .widebutton {
+                width: 140px;
+                color: LightGray;
+                font-size: 16px;
+            }
+
+                .widebutton:active {
+                    width: 140px;
+                }
+
+            .powerBtn {
+                display: inline-block;
+                color: LightGray;
+                font-size: 20px;
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                cursor: pointer;
+                margin: 0;
+                padding: 0px;
+                border: none;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                font: normal 20px/1 "Aldrich", Helvetica, sans-serif;
+                text-align: center;
+                background-image: -webkit-linear-gradient(-45deg, rgba(117, 0, 0, 1) 0, rgba(255, 91, 91, 1) 50%, rgba(96, 0, 0, 1) 100%);
+                background-image: -moz-linear-gradient(135deg, rgba(117, 0, 0, 1) 0, rgba(255, 91, 91, 1) 50%, rgba(96, 0, 0, 1) 100%);
+                background-image: linear-gradient(135deg, rgba(117, 0, 0, 1) 0, rgba(255, 91, 91, 1) 50%, rgba(96, 0, 0, 1) 100%);
+                -webkit-box-shadow: -2px 2px 3px 3px rgba(0, 0, 0, 0.79), -2px 2px 1px 2px rgba(255, 255, 255, 0.1) inset, 4px -4px 1px 0 rgba(0, 0, 0, 0.5) inset;
+                box-shadow: -2px 2px 3px 3px rgba(0, 0, 0, 0.79), -2px 2px 1px 2px rgba(255, 255, 255, 0.1) inset, 4px -4px 1px 0 rgba(0, 0, 0, 0.5) inset;
+            }
+
+                .powerBtn:active {
+                    height: 47px;
+                    margin: 2px 0 0;
+                }
+
+
+
+            .moveup {
+                position: relative;
+                font-size: 15px;
+                display: block;
+            }
+
+            .ledlabel {
+                position: absolute;
+                font-size: 16px;
+                /*  font-weight: bold; */
+                color: #8F8F8F;
+            }
+
+            .active {
+                color: #aeffec !important;
+            }
+
+            .led {
+                position: absolute;
+                height: 10px;
+                width: 10px;
+                border-radius: 50%;
+                background-color: rgba(0, 0, 0, 0);
+                margin: 2px;
+            }
+
+            .led[data-ledon="true"] {
+                background-color: rgba(64, 255, 64, 0.8);
+                box-shadow: 0px 1px 10px rgba(32, 127, 32);
+            }
+
+            .knob {
+                position: absolute;
+                height: 120px;
+                width: 120px;
+                top: 50px;
+                left: 270px;
+                border-radius: 75px;
+                background: #ddd;
+                cursor: pointer;
+                transform: rotate(90deg);
+                color: LightGray;
+                background-image: -webkit-linear-gradient(-45deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                background-image: -moz-linear-gradient(135deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                background-image: linear-gradient(135deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                -webkit-box-shadow: -2px 2px 3px 3px rgba(0, 0, 0, 0.79), -2px 2px 1px 2px rgba(255, 255, 255, 0.1) inset, 4px -4px 1px 0 rgba(0, 0, 0, 0.5) inset;
+                box-shadow: -2px 2px 3px 3px rgba(0, 0, 0, 0.79), -2px 2px 1px 2px rgba(255, 255, 255, 0.1) inset, 4px -4px 1px 0 rgba(0, 0, 0, 0.5) inset;
+            }
+
+            .knobhandle {
+                position: relative;
+                height: 30px;
+                width: 30px;
+                top: 50px;
+                left: 8px;
+                border-radius: 15px;
+                background: #ddd;
+                cursor: pointer;
+                background-image: -webkit-linear-gradient(-45deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                background-image: -moz-linear-gradient(135deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                background-image: linear-gradient(135deg, #262626 0, #7a7a7a 50%, #262626 100%);
+                box-shadow: 0 0 1px rgba(0, 0, 0, 1), inset 0 0 3px rgba(0, 0, 0, 0.9);
+            }
+
+            .BNCFrame {
+                position: absolute;
+                height: 60px;
+                width: 60px;
+                background: #ddd;
+                border-radius: 50%;
+                box-shadow: 0 0 0px rgba(0, 0, 0, 1), inset 0px 0px 5px rgba(0, 0, 0, 0.9);
+                cursor: pointer;
+            }
+
+            #BNC1 {
+                top: 345px;
+                left: 160px;
+            }
+
+            #BNC2 {
+                top: 345px;
+                left: 240px;
+            }
+
+            #BNC3 {
+                top: 345px;
+                left: 320px;
+            }
+
+            .BNC {
+                position: absolute;
+                height: 50px;
+                width: 50px;
+                top: 5px;
+                left: 5px;
+            }
+
+            /* LEDs Right Positioning */
+
+            .m1led,
+            .m2led,
+            .m3led,
+            .m4led,
+            .m5led {
+                right: 65px;
+            }
+
+            .m1ledlabel,
+            .m2ledlabel,
+            .m3ledlabel,
+            .m4ledlabel,
+            .m5ledlabel {
+                right: 30px;
+            }
+
+            .ovpled,
+            .ocpled,
+            .ccled,
+            .cvled,
+            .outled {
+                right: 165px;
+            }
+
+            .ovpledlabel,
+            .ocpledlabel,
+            .ccledlabel,
+            .cvledlabel,
+            .outledlabel {
+                right: 120px;
+            }
+
+
+            /* LEDs Top Positioning */
+
+            .ovpled,
+            .m1led,
+            .ovpledlabel,
+            .m1ledlabel {
+                top: 20px;
+            }
+
+            .ocpled,
+            .m2led,
+            .ocpledlabel,
+            .m2ledlabel {
+                top: 50px;
+            }
+
+            .ccled,
+            .m3led,
+            .ccledlabel,
+            .m3ledlabel {
+                top: 80px;
+            }
+
+            .cvled,
+            .m4led,
+            .cvledlabel,
+            .m4ledlabel {
+                top: 110px;
+            }
+
+            .outled,
+            .m5led,
+            .outledlabel,
+            .m5ledlabel {
+                top: 140px;
+            }
+
+
+
+            /* Button Left Positioning */
+
+            .powerBtn,
+            .m3Btn,
+            .m2Btn,
+            .m1Btn,
+            .m4Btn {
+                left: 50px;
+            }
+
+            .lockBtn,
+            .ocpBtn,
+            .ovpBtn,
+            .offonBtn {
+                left: 125px;
+            }
+
+            .volcurBtn,
+            .leftBtn {
+                left: 260px;
+            }
+
+            .rightBtn {
+                left: 335px;
+            }
+            /* Button Top Positioning */
+
+            .powerBtn {
+                top: 350px;
+            }
+
+            .m1Btn,
+            .lockBtn {
+                top: 50px;
+            }
+
+            .m2Btn,
+            .ocpBtn {
+                top: 125px;
+            }
+
+            .m3Btn,
+            .ovpBtn,
+            .leftBtn,
+            .rightBtn {
+                top: 200px;
+            }
+
+            .m4Btn,
+            .offonBtn,
+            .volcurBtn {
+                top: 275px;
+            }
+            /* 7Segment Display */
+
+            #u_display {
+                position: absolute;
+                padding: 5px;
+                top: -75px;
+                left: -40px;
+                right: 0px;
+                bottom: 0px;
+                margin: auto;
+                height: 50px;
+                width: 290px;
+
+                display: flex;
+            }
+
+            #i_display {
+                position: absolute;
+                padding: 5px;
+                top: 75px;
+                left: -40px;
+                right: 0px;
+                bottom: 0px;
+                margin: auto;
+                height: 50px;
+                width: 290px;
+
+                display: flex;
+            }
+
+            .seven-segment {
+                display: inline-block;
+                position: relative;
+                top: 2px;
+                /* float: right; */
+                width: 28px;
+                height: 38px;
+                border: 1px solid black;
+                padding: 0px 2px;
+            }
+
+            * {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+            sub {
+                bottom: -.25em;
+            }
+
+            sub,
+            sup {
+                position: relative;
+                font-size: 75%;
+                line-height: 0;
+                vertical-align: baseline;
+            }
+
+            .seven-segment .a {
+                position: absolute;
+                left: 5px;
+                height: 0;
+                width: 18px;
+                border-top: 3px solid #2F4139;
+                border-left: 3px solid transparent;
+                border-right: 3px solid transparent;
+            }
+
+            .seven-segment .b {
+                position: absolute;
+                left: 20px;
+                top: 2px;
+                height: 15px;
+                width: 0;
+                border-right: 3px solid #2F4139;
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+                transform: rotate(6deg);
+            }
+
+            .seven-segment .c {
+                position: absolute;
+                left: 18px;
+                top: 18px;
+                height: 15px;
+                width: 0;
+                border-right: 3px solid #2F4139;
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+                transform: rotate(6deg);
+            }
+
+            .seven-segment .d {
+                position: absolute;
+                top: 32px;
+                left: 1px;
+                height: 0;
+                width: 18px;
+                border-bottom: 3px solid #2F4139;
+                border-left: 3px solid transparent;
+                border-right: 3px solid transparent;
+            }
+
+            .seven-segment .e {
+                position: absolute;
+                left: 2px;
+                top: 18px;
+                height: 15px;
+                width: 0;
+                border-left: 3px solid #2F4139;
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+                transform: rotate(6deg);
+            }
+
+            .seven-segment .f {
+                position: absolute;
+                left: 4px;
+                top: 2px;
+                height: 15px;
+                width: 0;
+                border-left: 3px solid #2F4139;
+                border-top: 3px solid transparent;
+                border-bottom: 3px solid transparent;
+                transform: rotate(6deg);
+            }
+
+            .seven-segment .dot {
+                position: absolute;
+                left: 22px;
+                top: 32px;
+                width: 3px;
+                height: 3px;
+                background: #2F4139;
+            }
+
+            .seven-segment .g .top {
+                position: absolute;
+                height: 0;
+                left: 4px;
+                top: 16px;
+                width: 18px;
+                border-bottom: 2px solid #2F4139;
+                border-left: 3px solid transparent;
+                border-right: 3px solid transparent;
+            }
+
+            .seven-segment .g .bottom {
+                position: absolute;
+                left: 4px;
+                top: 17px;
+                height: 0;
+                width: 18px;
+                border-top: 2px solid #2F4139;
+                border-left: 3px solid transparent;
+                border-right: 3px solid transparent;
+            }
+
+            .digit0 .a,
+            .digit2 .a,
+            .digit3 .a,
+            .digit5 .a,
+            .digit6 .a,
+            .digit7 .a,
+            .digit8 .a,
+            .digit9 .a {
+                border-top-color: #aeffec;
+            }
+
+            .digit0 .b,
+            .digit1 .b,
+            .digit2 .b,
+            .digit3 .b,
+            .digit4 .b,
+            .digit7 .b,
+            .digit8 .b,
+            .digit9 .b {
+                border-right-color: #aeffec;
+            }
+
+            .digit0 .c,
+            .digit1 .c,
+            .digit3 .c,
+            .digit4 .c,
+            .digit5 .c,
+            .digit6 .c,
+            .digit7 .c,
+            .digit8 .c,
+            .digit9 .c {
+                border-right-color: #aeffec;
+            }
+
+            .digit0 .d,
+            .digit2 .d,
+            .digit3 .d,
+            .digit5 .d,
+            .digit6 .d,
+            .digit8 .d,
+            .digit9 .d {
+                border-bottom-color: #aeffec;
+            }
+
+            .digit0 .e,
+            .digit2 .e,
+            .digit6 .e,
+            .digit8 .e {
+                border-left-color: #aeffec;
+            }
+
+            .digit0 .f,
+            .digit4 .f,
+            .digit5 .f,
+            .digit6 .f,
+            .digit8 .f,
+            .digit9 .f {
+                border-left-color: #aeffec;
+            }
+
+            .digitMinus .g .top,
+            .digit2 .g .top,
+            .digit3 .g .top,
+            .digit4 .g .top,
+            .digit5 .g .top,
+            .digit6 .g .top,
+            .digit8 .g .top,
+            .digit9 .g .top,
+            .minus .g .top {
+                border-bottom-color: #aeffec;
+            }
+
+            .digitMinus .g .bottom,
+            .digit2 .g .bottom,
+            .digit3 .g .bottom,
+            .digit4 .g .bottom,
+            .digit5 .g .bottom,
+            .digit6 .g .bottom,
+            .digit8 .g .bottom,
+            .digit9 .g .bottom,
+            .minus .g .bottom {
+                border-top-color: #aeffec;
+            }
+
+            .dp .dot {
+                background-color: #aeffec;
+            }
+
+            :focus {
+                outline: none;
+            }
+
+            ::-moz-focus-inner {
+                border: 0;
+            }
+        </style>
+        <script>
+            window.console = window.console || function (t) { };
+
+            if (document.location.search.match(/type=embed/gi)) {
+                window.parent.postMessage("resize", "*");
+            }
+        </script>
+    </head>
+
+    <template id="seven-segment-template">
+        <div class="seven-segment">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+            <div class="e"></div>
+            <div class="f"></div>
+            <div class="g">
+                <div class="top"></div>
+                <div class="bottom"></div>
+            </div>
+            <div class="dot"></div>
+        </div>
+    </template>
+
+    <template id="bnc-template">
+        <svg class="BNC" viewBox="0 0 100 100" width="100" height="100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <defs>
+                <filter height="200%" width="200%" y="-50%" x="-50%" id="svg_7_blur">
+                    <feGaussianBlur stdDeviation="0" in="SourceGraphic" />
+                </filter>
+                <radialGradient r="0.50126" cy="0.55" cx="0.5" spreadMethod="pad" id="svg_17">
+                    <stop offset="0.17969" stop-opacity="0.99609" stop-color="#6d6d6d" />
+                    <stop offset="0.95313" stop-opacity="0.99609" stop-color="#232323" />
+                </radialGradient>
+                <radialGradient spreadMethod="pad" id="svg_18">
+                    <stop offset="0" stop-color="#999999" />
+                    <stop offset="1" stop-color="#666666" />
+                </radialGradient>
+            </defs>
+            <g>
+                <ellipse stroke="#7f7f7f" ry="44" rx="44" id="svg_3" cy="50" cx="50" fill="url(#svg_18)" />
+                <ellipse stroke="#7f7f7f" ry="44" rx="44" cy="50" cx="50" class="bnc-colored-part"/>
+                <ellipse ry="40" rx="40" id="svg_4" cy="50" cx="50" stroke="#666666" fill="url(#svg_17)" />
+                <ellipse filter="url(#svg_7_blur)" ry="25" rx="25" id="svg_7" cy="50" cx="50" stroke="#999999" fill="#e5e5e5" />
+                <ellipse filter="url(#svg_7_blur)" ry="20" rx="20" id="svg_9" cy="50" cx="50" stroke="#191919" fill="#f4bb2c" />
+                <ellipse filter="url(#svg_7_blur)" ry="18" rx="18" id="svg_10" cy="50" cx="50" stroke="#191919" fill="#191919" />
+            </g>
+        </svg>
+    </template>
+
+    <body translate="no">
+        <div class="container">
+            <div class="panel">
+                <div class="panel-edge">
+                    <div class="logo">KORAD</div>
+                    <div class="model">KA3005D</div>
+                </div>
+                <div class="screen-edge">
+                    <div class="ledlabel m1ledlabel">M1</div>
+                    <div class="ledlabel m2ledlabel">M2</div>
+                    <div class="ledlabel m3ledlabel">M3</div>
+                    <div class="ledlabel m4ledlabel">M4</div>
+                    <div class="ledlabel m5ledlabel">M5</div>
+
+                    <div class="ledlabel ovpledlabel">OVP</div>
+                    <div class="ledlabel ocpledlabel">OCP</div>
+                    <div class="ledlabel ccledlabel">C . C</div>
+                    <div class="ledlabel cvledlabel">C . V</div>
+                    <div class="ledlabel outledlabel">OUT</div>
+
+                    <div class="led ovpled" id="ovp_led"></div>
+                    <div class="led ocpled" id="ocp_led"></div>
+                    <div class="led ccled" id="cc_led"></div>
+                    <div class="led cvled" id="cv_led"></div>
+                    <div class="led outled" id="out_led"></div>
+                    <div class="led m1led" id="m1_led"></div>
+                    <div class="led m2led" id="m2_led"></div>
+                    <div class="led m3led" id="m3_led"></div>
+                    <div class="led m4led" id="m4_led"></div>
+                    <div class="led m5led" id="m5_led"></div>
+
+                    <div id="u_display"></div>
+                    <div id="i_display"></div>
+
+                </div>
+                <div class="panel-face">
+                    <button class="powerBtn" value="I" id = "power_btn">I</button>
+                    <button class="button widebutton volcurBtn" value="Vol">Voltage/Current</button>
+                    <button class="button onoff offonBtn" value="sign" id="offon_btn">Off/On</button>
+                    <button class="button m1Btn" value="7">M1</button>
+                    <button class="button lockBtn" value="8">Lock</button>
+                    <button class="button m2Btn" value="4">M2</button>
+                    <button class="button ocpBtn" value="5">OCP</button>
+                    <button class="button m3Btn" value="m3">M3</button>
+                    <button class="button ovpBtn" value="ovp">OVP</button>
+                    <button class="button m4Btn" value="0">M4</button>
+                    <button class="button leftBtn" value="plus"><</button>
+                    <button class="button rightBtn" value="equal">></button>
+
+                    <div class="knob">
+                        <div class="knobhandle"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            const DISCONNECT_TIMEOUT_IN_MS = 4000; // 4 second
+            let websocket;
+            let wsopen = false;
+
+            function heartbeat() {
+                console.log('ping');
+            }
+
+            function connect() {
+                websocket = new WebSocket('ws://' + window.location.hostname + ':81/');
+                websocket.onopen = function (event) {
+                    console.log('Connection established');
+                    retries = 0;
+                    wsopen = true;
+                }
+                websocket.onclose = function (event) {
+                    console.log('Socket is closed.', event.reason);
+                    wsopen = false;
+                    document.getElementById("ovp_led").dataset.ledon = false;
+                    document.getElementById("ocp_led").dataset.ledon = false;
+                    document.getElementById("cc_led").dataset.ledon = false;
+                    document.getElementById("cv_led").dataset.ledon = false;
+                    document.getElementById("out_led").dataset.ledon = false;
+                    document.getElementById("m1_led").dataset.ledon = false;
+                    document.getElementById("m2_led").dataset.ledon = false;
+                    document.getElementById("m3_led").dataset.ledon = false;
+                    document.getElementById("m4_led").dataset.ledon = false;
+                    document.getElementById("m5_led").dataset.ledon = false;
+                    showValueInContainer('    ', 'u_display');
+                    showValueInContainer('    ', 'i_display');  
+                }
+                websocket.onerror = function (error) {
+                    console.log('error');
+                };
+                websocket.onmessage = function (event) {
+                    var obj = JSON.parse(event.data);
+                    if ('ovp_led' in obj) document.getElementById("ovp_led").dataset.ledon = obj.ovp_led;
+                    if ('ocp_led' in obj) document.getElementById("ocp_led").dataset.ledon = obj.ocp_led;
+                    if ('cc_led' in obj) document.getElementById("cc_led").dataset.ledon = obj.cc_led;
+                    if ('cv_led' in obj) document.getElementById("cv_led").dataset.ledon = obj.cv_led;
+                    if ('out_led' in obj) document.getElementById("out_led").dataset.ledon = obj.out_led;
+                    if ('m1_led' in obj) document.getElementById("m1_led").dataset.ledon = obj.m1_led;
+                    if ('m2_led' in obj) document.getElementById("m2_led").dataset.ledon = obj.m2_led;
+                    if ('m3_led' in obj) document.getElementById("m3_led").dataset.ledon = obj.m3_led;
+                    if ('m4_led' in obj) document.getElementById("m4_led").dataset.ledon = obj.m4_led;
+                    if ('m5_led' in obj) document.getElementById("m5_led").dataset.ledon = obj.m5_led;
+
+                    if ('u_str' in obj) showValueInContainer(obj.u_str, 'u_display');
+                    if ('i_str' in obj) showValueInContainer(obj.i_str, 'i_display');
+                }; 
+            }
+
+            window.addEventListener('load', function () {
+                const msg = {offonclick : true};
+                connect();
+                document.getElementById('offon_btn').addEventListener('click', function () { websocket.send(JSON.stringify(msg)); });
+                document.getElementById('power_btn').addEventListener('click', function () { 
+                    if (wsopen) websocket.close();
+                    else connect();
+                });
+            });
+
+            // value is a string, i.e. "12.34"
+            // containerId is a string, id of an html element
+            function showValueInContainer(value, containerId) {
+                // 1. Clear everything inside container
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+
+                // 2. Generate children
+                const children = [];
+                
+                const dotPosition = value.indexOf('.');
+                const valueWithoutDot = value.replace('.', '');
+
+
+                for (const symbol of valueWithoutDot) {
+                    if ("content" in document.createElement("template")) {
+                        const template = document.querySelector("#seven-segment-template");
+
+                        // Clone the new row and insert it into the table
+                        const clone = template.content.cloneNode(true);
+                        
+                        if (symbol !== ' ') {
+                            let className = '';
+                            if (symbol === '-') {
+                                className = 'digitMinus';
+                            } else {
+                                className = 'digit' + symbol;
+                            }
+
+                            clone.children[0].classList.add(className);
+                        }
+
+                        children.push(clone);
+                    } else {
+                        // Find another way to add the rows to the table because
+                        // the HTML template element is not supported.
+                        console.error('HTML templates are not supported');
+                    }
+                }
+
+                // Add dot
+                if (dotPosition > 0) {
+                    children[dotPosition - 1].children[0].classList.add('dp')
+                }
+
+                
+                // 3. Add children to the container
+                for (const child of children) {
+                    container.appendChild(child);
+                }
+            }
+
+            showValueInContainer('    ', 'u_display');
+            showValueInContainer('    ', 'i_display');  
+
+            // Show BNC
+            const bncContainer = document.querySelector('.panel-face');
+            const bncColors = ['red', 'green', 'blue'];
+
+
+            for (let i = 0; i < 3; i++) {
+                const el = document.createElement('div');
+                el.classList.add('BNCFrame');
+                el.id = `BNC${i + 1}`;
+
+                const template = document.querySelector("#bnc-template");
+                const clone = template.content.cloneNode(true);
+                
+                el.appendChild(clone);
+
+                el.getElementsByClassName('bnc-colored-part')[0].style.fill = bncColors[i];
+
+                bncContainer.appendChild(el);
+            }
+        </script>
+    </body>
+</html>
