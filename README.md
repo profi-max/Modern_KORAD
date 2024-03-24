@@ -10,6 +10,8 @@ Also you need an external wifi antenna and a DC-DC converter (12v -> 5v, 1A).
 ![WT32-SC01](/Pictures/wt32sc01.jpg)
 ![WIFI Antenna](/Pictures/wifi_antenna.jpg)
 ![DC-DC converter](/Pictures/dc_dc.jpg)
+![IPX](/Pictures/IPX.jpg)
+![IDC](/Pictures/IDC.jpg)
 
 There are two options for the board:
 1) WT32-SC01 - recommended
