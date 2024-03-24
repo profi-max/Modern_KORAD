@@ -1,3 +1,4 @@
-/SquareLine/autosave
-/SquareLine/backup
-/SquareLine/cache
+SquareLine/autosave
+SquareLine/backup
+SquareLine/cache
+*.md
