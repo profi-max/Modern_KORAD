@@ -1,8 +1,8 @@
 # Modern KORAD
 ### Update your KORAD using the LCD display and the touch panel.
-https://youtu.be/N-qjmBWFpcI
+https://youtu.be/W0K4ZL6MwYY
 
- [![Watch the video](https://img.youtube.com/vi/N-qjmBWFpcI/hqdefault.jpg)](https://www.youtube.com/embed/N-qjmBWFpcI)
+ [![Watch the video](https://img.youtube.com/vi/W0K4ZL6MwYY/hqdefault.jpg)](https://www.youtube.com/embed/W0K4ZL6MwYY)
  
 # How to make modern KORAD
 You actually need to replace the display board with a new LCD. The project is based on the low cost ESP32 development board. The board WT32-SC01 with 3.5 inch 320x480 capacitive multi-touch LCD Screen and built-in Wifi. 
