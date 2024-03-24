@@ -51,9 +51,10 @@ All schematics can be found in the **Schematics** folder.
 ![Connection](/Schematics/Schematic_WT32_SC01.jpg)
 
 ## Programming
-You can change the user inteface using [SquareLine Studio](https://squareline.io/). The UI project is in the **SquareLine** folder. 
+You can change the user inteface using [SquareLine Studio](https://squareline.io/).
+SquareLine Studio is a wonderful product. But if you do not plan to change the user interface, you can do without SquareLine Studio. All you need is Visual Studio Code with Platformio.
 
-Change File->Project Settings, FILE EXPORT, Project Export Root and UI File Export Path to your correct folders.
+The UI project is in the **SquareLine** folder. Change File->Project Settings, FILE EXPORT, Project Export Root and UI File Export Path to your correct folders.
 <details>
 <summary>Click to view SquareLine Studio Project Settings</summary>
 <image src="/Pictures/SLStudio.jpg" alt="Project Settings">
