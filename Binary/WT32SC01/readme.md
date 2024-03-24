@@ -1,4 +1,4 @@
-## WT32-SC01 PLUS Flashing
+## WT32-SC01 Flashing
 
 Push RESET (RST) button after flashing to restart the board!
 
