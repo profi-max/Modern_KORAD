@@ -29,7 +29,7 @@ Connect USB cable to your development board, run the application, select COM por
 2. Use Visual Studio Code + Platformio. Open project from **VSCode** folder. Build and upload the project.
 <details>
 <summary>Click to view Flash Download Tools</summary>
-<image src="/Pictures/flasher.jpg" alt="Flasher">
+<image src="/Pictures/WT32SC01_Flash_start.jpg" alt="Flasher">
 </details>
 
 ## How it works
