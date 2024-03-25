@@ -63,9 +63,10 @@ The UI project is in the **SquareLine** folder. Change File->Project Settings, F
 ## User manual
 Yellow is highlighted the clickable areas. On the first screen you can change between (W) Watts and (R) Resistance.
 ![Screen 1](/Pictures/Screen1.jpg) ![Screen 2](/Pictures/Screen2.jpg)
+![Screen 3](/Pictures/Screen3.jpg)
+
 On the third screen you can change the oscilloscope mode: 
 -> Single voltage beam -> Single current beam -> Both beams. Voltage ahead -> Both beams. Current ahead ->
-![Screen 3](/Pictures/Screen3.jpg)
 
 ### Settings screen
 ![Settings Screen](/Pictures/SettingsScreen.jpg)
@@ -79,6 +80,7 @@ On the third screen you can change the oscilloscope mode:
 
 ### Exterior Screen
 ![Exterior Screen](/Pictures/ExteriorScreen.jpg)
+
 At the left pane you can change the colors for:  CC mode, CV mode and so on.
 At the right pane you can change the fonts: Segment, Electro, Roboro.
 Default button restores default exterior.
@@ -107,5 +109,6 @@ You need an additional UART-USB converter for debug and modbus communication wit
 
 ## Fix compilation problem
 ![Error](/Pictures/SLS_error.jpg)
+
 Add #include <math.h> in the automaticaly generated ui_DebugScreen.c file.
 ![Error fix](/Pictures/SLS_error_fix.jpg)
