@@ -84,7 +84,8 @@ At the right pane you can change the fonts: Segment, Electro, Roboro.
 Default button restores default exterior.
 
 ### Debug Screen
-![Debug Screen 1](/Pictures/DebugScreen.jpg)
+![Debug Screen 1](/Pictures/DebugScreenD.jpg)
+![Debug Screen 1](/Pictures/DebugScreenP.jpg)
 
 
 ## DPSmaster - Windows PC application for managing KORAD3005
