@@ -121,15 +121,15 @@ Add #include <math.h> in the automaticaly generated ui_DebugScreen.c file.
 ## How to debug
 You can debug the software via USB (Serial at speed 115200).
 In platformio.ini file uncomment the line and set desired level. See ESP-IDF Logging library.
-```-DCORE_DEBUG_LEVEL=4```
+`-DCORE_DEBUG_LEVEL=4`
 means
-```#define CORE_DEBUG_LEVEL=4```
+`#define CORE_DEBUG_LEVEL=4`
 
 In korad.h file uncomment the line
 `//#define DEBUG_WITH_OSCILL`
 for debug with an external oscilloscope. In this case UART Rx and TX pins use as outputs to monitor a delay in software after the decimal bit synchro pulse.
 
 In modbus.cpp file uncomment one of lines if you need modbus messages.
-//#define MB_DEBUG
-//#define KORAD_DEBUG_TX
-//#define KORAD_DEBUG_RX
+`//#define MB_DEBUG`
+`//#define KORAD_DEBUG_TX`
+`//#define KORAD_DEBUG_RX`
