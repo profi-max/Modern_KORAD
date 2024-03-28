@@ -133,3 +133,27 @@ In modbus.cpp file uncomment one of lines if you need modbus messages.
 `//#define MB_DEBUG`
 `//#define KORAD_DEBUG_TX`
 `//#define KORAD_DEBUG_RX`
+
+## Useful tools
+<details>
+<summary>Click to open</summary>
+Fonts creating:
+
+https://tophix.com/font-tools/font-editor
+
+https://www.glyphrstudio.com/online/
+
+https://lvgl.io/tools/fontconverter
+
+HTML compressor:
+
+https://htmlcompressor.com/compressor/
+
+External WiFi antenna:
+
+https://youtu.be/aBTZuvg5sM8?si=xhjO85yS21byyTkX
+
+</details>
+
+
+
