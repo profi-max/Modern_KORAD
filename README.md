@@ -89,6 +89,11 @@ Default button restores default exterior.
 ![Debug Screen 1](/Pictures/DebugScreenD.jpg)
 ![Debug Screen 1](/Pictures/DebugScreenP.jpg)
 
+Shift depends of decimal bit synchro pulse connected to dev board.
+Before/After edge. The data is before or after the decimal bit synchro pulse.
+Revers. Data sequence is 1234 or 4321.
+Prescaler. Frequency divider for the update rate of 7-segment display. KA3005D updates the 7-segment display 200 times a second, so you need prescaler 10...20.
+KA3005DP or KA3005P needs 2...5 prescaler.
 
 ## DPSmaster - Windows PC application for managing KORAD3005
 1. WiFi: In the DPSmaster application select "TCP" and enter correct KORAD's local IP address.
@@ -112,3 +117,19 @@ You need an additional UART-USB converter for debug and modbus communication wit
 
 Add #include <math.h> in the automaticaly generated ui_DebugScreen.c file.
 ![Error fix](/Pictures/SLS_error_fix.jpg)
+
+## How to debug
+You can debug the software via USB (Serial at speed 115200).
+In platformio.ini file uncomment the line and set desired level. See ESP-IDF Logging library.
+-DCORE_DEBUG_LEVEL=4
+means
+#define CORE_DEBUG_LEVEL=4
+
+In korad.h file uncomment the line
+//#define DEBUG_WITH_OSCILL 
+for debug with an external oscilloscope. In this case UART Rx and TX pins use as outputs to monitor a delay in software after the decimal bit synchro pulse.
+
+In modbus.cpp file uncomment one of lines if you need modbus messages.
+//#define MB_DEBUG
+//#define KORAD_DEBUG_TX
+//#define KORAD_DEBUG_RX
