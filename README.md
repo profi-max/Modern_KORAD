@@ -27,7 +27,7 @@ Aliexpress pages:
 
 ## How to flash the board (2 ways)
 1. Use finished firmware files from the folder **Binary**. Upload Flash Download Tools  from official page: https://www.espressif.com/en/support/download/other-tools
-Connect USB cable to your development board, run the application, select COM port and bin-file. When download is completed push "RST" (Reset) button to restart your dev board.
+Connect USB cable to your development board, run the application, select COM port and bin-files. When download is completed push "RST" (Reset) button to restart your dev board.
 2. Use Visual Studio Code + Platformio. Open project from **VSCode** folder. Build and upload the project.
 <details>
 <summary>Click to view Flash Download Tools</summary>
