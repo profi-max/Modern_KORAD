@@ -103,6 +103,8 @@ DPSmaster officail page: https://profimaxblog.ru/dpsmaster/
 
 DPSmaster full review: https://youtu.be/1nZQ2FA08Fg
 
+Modbus RTU/TCP protocol: https://profimaxblog.ru/modbus-communication-protocol-2/
+
 ![DPSmaster](/Pictures/DPSmaster.jpg)
 
 ## How to use WT32-SC01 PLUS (not recommended)
@@ -154,6 +156,16 @@ External WiFi antenna:
 https://youtu.be/aBTZuvg5sM8?si=xhjO85yS21byyTkX
 
 </details>
+
+## Video & Photo Galery
+https://youtu.be/TyBHbHPaX8c
+
+https://youtu.be/DnYYm2FFc24
+
+## Discussion of the project / Forum
+https://profimaxblog.ru/forums/topic/modern-korad/
+
+
 
 
 
