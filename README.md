@@ -95,6 +95,10 @@ Default button restores default exterior.
 + Prescaler. Frequency divider for the update rate of 7-segment display. KA3005D updates the 7-segment display 200 times a second, so you need prescaler 10...20.
 KA3005DP or KA3005P needs 2...5 prescaler.
 
+## WEB interface
+Enter KORAD's local IP address in you browser.
+![web interface](/Pictures/web_interface.jpg)
+
 ## DPSmaster - Windows PC application for managing KORAD3005
 1. WiFi: In the DPSmaster application select "TCP" and enter correct KORAD's local IP address.
 2. USB:  In the DPSmaster application select correct COM-port. Baud rate 115200, slave address 1.
