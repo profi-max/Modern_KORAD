@@ -154,7 +154,7 @@ void uLabelClickEvent_cb(lv_event_t * e)
 			setVoltage = true;
 			prevScreen = lv_scr_act();
 			char str[8];
-			uint16toStr(gVerifiedData.iSet, str, gVerifiedData.iPointPos, -1, false);
+			uint16toStr(gVerifiedData.iSet, str, gVerifiedData.iPointPosSet, -1, false);
 			lv_obj_remove_event_cb(ui_TextAreaIset, ui_event_TextAreaIset);
 			lv_textarea_set_text(ui_TextAreaIset, str);
 			lv_obj_set_style_border_color(ui_TextAreaIset, CLR_DARKGRAY, LV_PART_MAIN);
@@ -312,9 +312,8 @@ void Screen3UnloadStartEvent(lv_event_t * e)
 
 void UsetEvent_cb(lv_event_t * e)
 {
-	// Your code here
 	const char * text = lv_textarea_get_text(ui_TextAreaUset);
-	uint32_t value = strToUint(text, gVerifiedData.uPointPos);
+	uint32_t value = strToUint(text, 1);
 	if (value > MAX_U) { 
 		lv_obj_set_style_text_color(ui_TextAreaUset, lv_palette_main(LV_PALETTE_ORANGE), LV_PART_MAIN);
 		lv_obj_add_state(ui_ButtonOk, LV_STATE_DISABLED);       /// States
@@ -324,14 +323,12 @@ void UsetEvent_cb(lv_event_t * e)
 		lv_obj_clear_state(ui_ButtonOk, LV_STATE_DISABLED);       /// States
 		locUset = value;
 	}
-//	SerialPrintValue("uValue", value);
 }
 
 void IsetEvent_cb(lv_event_t * e)
 {
-	// Your code here
 	const char * text = lv_textarea_get_text(ui_TextAreaIset);
-	uint32_t value = strToUint(text, gVerifiedData.iPointPos);
+	uint32_t value = strToUint(text, 0);
 	if (value > MAX_I) { 
 		lv_obj_set_style_text_color(ui_TextAreaIset, lv_palette_main(LV_PALETTE_ORANGE), LV_PART_MAIN);
 		lv_obj_add_state(ui_ButtonOk, LV_STATE_DISABLED);       /// States
@@ -341,13 +338,23 @@ void IsetEvent_cb(lv_event_t * e)
 		lv_obj_clear_state(ui_ButtonOk, LV_STATE_DISABLED);       /// States
 		locIset = value;
 	}
-//	SerialPrintValue("iValue", value);
 }
 
 void OkButtonEvent_cb(lv_event_t * e)
 {
-	if (setVoltage) transmitKoradCommand(locUset, gVerifiedData.iSet, gData.outputOn, gPersistData.blockUART);
-	else transmitKoradCommand(gVerifiedData.uSet, locIset, gData.outputOn, gPersistData.blockUART);
+	if (!gData.outputOn ||  !gPersistData.blockUART)  // if not block
+	{
+		if (setVoltage) 
+		{
+			transmitKoradCommand(locUset, gVerifiedData.iSet, gData.outputOn);
+			gVerifiedData.uSet = locUset;
+		}
+		else 
+		{
+			transmitKoradCommand(gVerifiedData.uSet, locIset, gData.outputOn);
+			gVerifiedData.iSet = locIset;
+		}
+	}
 	lv_scr_load(prevScreen);
 	doBeep();
 }
@@ -447,7 +454,6 @@ void SettingsScreenGestureUpDownEvent_cb(lv_event_t * e)
 
 void DebugScreenLoadStartEvent_cb(lv_event_t * e)
 {
-	// Your code here
 	uLabel =ui_uLabel4;
 	iLabel = ui_iLabel4;
 	pLabel = NULL;
@@ -743,7 +749,6 @@ void BrightnesSliderEvent_cb(lv_event_t * e)
 	gPersistData.brightness = steps * BRIGHTNESS_STEP;
   	setBrightness(gPersistData.brightness);
 	doBeep();
-//	SerialPrintValue("gPersistData.brightness", gPersistData.brightness);
 }
 
 void ExteriorCloseButton_cb(lv_event_t * e)

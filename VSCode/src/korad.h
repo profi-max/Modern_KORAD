@@ -79,6 +79,8 @@ extern "C" {
 #define BIT_MASK_CC  0x0100
 #define BIT_MASK_CV  0x0010
 #define BIT_MASK_OUT 0x0001
+#define BIT_MASK_MODBUS 0x4000 // no LED
+#define BIT_MASK_MEMORIES (BIT_MASK_M1 | BIT_MASK_M2 | BIT_MASK_M3 | BIT_MASK_M4 | BIT_MASK_M5 | BIT_MASK_MODBUS)
 #define VALUE_ERR_CODE 10000
 #define ENERGY_ERR_CODE 0xFFFFFFFF
 #define MAX_U 3100
@@ -94,7 +96,7 @@ extern TaskHandle_t gInterruptTaskHandler;
 void InterruptTask(void *pvParameter);
 uint8_t GetVoltBitValue(uint8_t aBitValue, bool* dp); // dp means decimal point
 uint8_t GetAmperBitValue(uint8_t aBitValue, bool* dp); // dp means decimal point
-void transmitKoradCommand(uint16_t uSet, uint16_t iSet, bool onOff, bool block);
+void transmitKoradCommand(uint16_t uSet, uint16_t iSet, bool onOff);
 
 #ifdef __cplusplus
 } /*extern "C"*/

@@ -180,7 +180,7 @@ void ui_SettingsScreen_screen_init(void)
     lv_obj_set_height(ui_Label7, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Label7, 0);
     lv_obj_set_y(ui_Label7, 2);
-    lv_label_set_text(ui_Label7, "Exteroir");
+    lv_label_set_text(ui_Label7, "Exterior");
     lv_obj_set_style_text_font(ui_Label7, &lv_font_montserrat_22, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_ExteriorMenuButton = lv_btn_create(ui_ExteriorMenuPanel);

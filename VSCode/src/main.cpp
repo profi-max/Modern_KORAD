@@ -13,8 +13,8 @@ https://github.com/profi-max
 #include <HardwareSerial.h>
 #include <EEPROM.h>
 #include <vector>
-#include <WiFi.h> // needed to connect to WiFi
-#include <ArduinoJson.h> // needed for JSON encapsulation (send multiple variables with one string)
+#include <WiFi.h> 
+#include <ArduinoJson.h> 
 #include <WiFiClientSecure.h>
 #include <WebSocketsServer.h>
 #include <WebServer.h>
@@ -32,7 +32,8 @@ https://github.com/profi-max
 const char* hostName = "KORAD_3005D";
 static const char* logTAG = "main.cpp";
 
-#ifdef WT32SC01PLUS
+//---------------------------- WT32-SC01_PLUS TFT & TOUCH setup --------------------------
+#ifdef WT32SC01PLUS  // see define in platformio.ini file
 #define SCR 32
 class LGFX : public lgfx::LGFX_Device
 {
@@ -131,6 +132,8 @@ public:
 };
 
 #else
+
+//---------------------------- WT32-SC01 TFT & TOUCH setup --------------------------
 #define SCR 32
 class LGFX : public lgfx::LGFX_Device
 {
@@ -229,14 +232,13 @@ public:
   }
 };
 #endif
+//------------------------------- End TFT+TOUCH setup ------------------------------
 
-// Create an instance of the prepared class.
-LGFX tft;
+LGFX tft; // Create an instance of the prepared class.
 
 static uint16_t gRowData[5];  // the  main data
 static wsData_t wsTempData;   // data for websocket
 
-//HardwareSerial SerialPort(1); // use UART1
 TimerHandle_t energyProgTimer, blinkProgTimer;
 
 std::vector<String> foundWifiList;
@@ -269,6 +271,9 @@ void energyProgTimer_cb( TimerHandle_t xTimer );
 void blinkProgTimer_cb( TimerHandle_t xTimer );
 void onHeartBeat(lv_timer_t *timer);
 
+/*********************************************************************************************************************
+ *                                    TFT & TOUCH & EEPROM & UART functions
+**********************************************************************************************************************/
 //=====================================================================================================================
 void IRAM_ATTR my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
 {
@@ -279,17 +284,12 @@ void IRAM_ATTR my_disp_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_colo
   // Yes, yes. ESP32-S3 has 8/16-bit parallel LCD intrface with DMA
   tft.waitDMA();  
   tft.pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, &color_p->full);
-    // tft.pushImageDMA(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, (lgfx::swap565_t *)&color_p->full);
-  
   lv_disp_flush_ready(disp); /* tell lvgl that flushing is done */
 }
 //=====================================================================================================================
 void IRAM_ATTR directDraw (int32_t x, int32_t y, int32_t w, int32_t h, const uint16_t* data)
 {
-  if (tft.getStartCount() == 0)
-  {
-    tft.startWrite();
-  }
+  if (tft.getStartCount() == 0) tft.startWrite();
   tft.waitDMA();
   tft.pushImageDMA(x, y, w, h, data);
 }
@@ -300,7 +300,6 @@ void IRAM_ATTR my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *d
   if( tft.getTouch( &touchX, &touchY ) )
   {
       data->state = LV_INDEV_STATE_PR;
-      /*Set the coordinates*/
       data->point.x = touchX;
       data->point.y = touchY;
   }
@@ -340,6 +339,7 @@ void uartTransmitBuffer(const char * buffer, size_t size)
 /*********************************************************************************************************************
  *                                    SETUP & LOOP
 **********************************************************************************************************************/
+//=====================================================================================================================
 int debug_msg(const char *format, ...)
 {
 
@@ -360,10 +360,6 @@ int redirect_debug_msg(const char *format, va_list args)
 //=====================================================================================================================
 void setup()
 {
-
-//  uint8_t *disp_draw_buf = (uint8_t *)heap_caps_malloc(SCREEN_WIDTH * SCR, MALLOC_CAP_INTERNAL | MALLOC_CAP_DMA);
-//  uint8_t *disp_draw_buf2 = (uint8_t *)heap_caps_malloc(SCREEN_WIDTH * SCR, MALLOC_CAP_INTERNAL | MALLOC_CAP_DMA);
-
   static lv_disp_draw_buf_t draw_buf;
   static lv_disp_drv_t disp_drv;
   static lv_color_t disp_draw_buf[SCREEN_WIDTH * SCR];
@@ -454,10 +450,11 @@ void loop()
   // let arduino task sleep
   vTaskSuspend(NULL); // suspend itself 
 }
-//===================================================================================================
+//=====================================================================================================================
 /*********************************************************************************************************************
  *                                    NETWORK TASKs
 **********************************************************************************************************************/
+//=====================================================================================================================
 void webServerNotFound(void) {
   ESP_LOGE(logTAG, "Web server not found"); 
 }
@@ -532,7 +529,7 @@ void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length) {
       }
       else {
         // JSON string was received correctly, so information can be retrieved:
-        if (jsonDocRx["offonclick"]) transmitKoradCommand(gVerifiedData.uSet, gVerifiedData.iSet, !gData.outputOn, false);
+        if (jsonDocRx["offonclick"]) transmitKoradCommand(gVerifiedData.uSet, gVerifiedData.iSet, !gData.outputOn);
         else ESP_LOGE(logTAG, "Received  undefined event"); 
       }
       break;
@@ -648,8 +645,6 @@ void NetworkTask(void *pvParameter)
   webSocket.onEvent(webSocketEvent);  
 //  webSocket.enableHeartbeat(5000, 5000, 2);
 
-  
-
   while (1) {
     //----------------------- Events from MainDisplayTask --------------------------
     EventBits_t bits = xEventGroupClearBits(networkChangeTaskEventGroup, NETWORK_CHANGE_TASK_RQST_EVT);
@@ -741,9 +736,11 @@ void NetworkTask(void *pvParameter)
     }
   }
 }
+//=====================================================================================================================
 /*********************************************************************************************************************
  *                                    COMMON TASKs
 **********************************************************************************************************************/
+//=====================================================================================================================
 void MainDisplayTask(void *pvParameter) 
 {
   ESP_LOGI(logTAG, "MainDisplay task running on core %d", xPortGetCoreID()); 
@@ -764,7 +761,6 @@ void MainDisplayTask(void *pvParameter)
   const uint8_t DATA_TIMEOUT = 5; //  10 means 1 second
 
   while(1) {
-
     gDataChanged = false;
       //---------------------  Check timeout ----------------------------------------------
     if (gDataTimeout >= DATA_TIMEOUT) {  //  No data been recieved last 1 second
@@ -789,7 +785,13 @@ void MainDisplayTask(void *pvParameter)
       }
     }
     if (gDataChanged) continue; // to avoid the data corruption
-    
+
+    //-------------------------  Check Modbus activity   ----------------------------------------------
+    if (gModbusConnected && (gRowData[0] != 0)) {
+      gRowData[0] = gRowData[0] & (~BIT_MASK_MEMORIES);  // clear all Memory Bits
+      gRowData[0] |= BIT_MASK_MODBUS;   // add Modbus bit
+    }     
+
     //---------------------  Check changes in data ----------------------------------------------
     bool result = false;  //  result = true if data has been changed
     for (i = 0; i < 5; i++) {
@@ -847,14 +849,18 @@ void MainDisplayTask(void *pvParameter)
       if (verifiedData) {
         if (!blinking && !gData.error) {
           gVerifiedData.uPointPos = uPointPos;
-          gVerifiedData.iPointPos = iPointPos;
           gVerifiedData.ocp = gRowData[0] & BIT_MASK_OCP;
-          if (gData.outputOn) { gVerifiedData.uOut = uValue; gVerifiedData.iOut = iValue; } 
+          if (gData.outputOn) { 
+            gVerifiedData.uOut = uValue; gVerifiedData.iOut = iValue; 
+            gVerifiedData.iPointPosOut = iPointPos;
+          } 
           else {
             gVerifiedData.uSet = uValue;  gVerifiedData.iSet = iValue; 
+            gVerifiedData.iPointPosSet = iPointPos;
             gVerifiedData.uOut = 0; gVerifiedData.iOut = 0;
+            gVerifiedData.iPointPosOut = 0;   // X.XXX
             oscSetRange();
-            }
+          }
         }
         verifiedData = false;
         gVerificationCounter++;
@@ -887,9 +893,11 @@ void MainDisplayTask(void *pvParameter)
       }
       
       if (!gData.error && !blinking) {
-        if (iValue == 0) gData.resist = ENERGY_ERR_CODE;
-        else gData.resist = (uValue * 100) / iValue;
-        gData.power = uValue * iValue / 10000;
+        uint32_t iValue_2 = iValue;
+        if (iPointPos == 1) iValue_2 = iValue * 10;  // when current is 10.00 amper
+        if (iValue_2 == 0) gData.resist = ENERGY_ERR_CODE;
+        else gData.resist = (uValue * 100) / iValue_2;
+        gData.power = uValue * iValue_2 / 10000;        
       } 
       else gData.power = gData.resist = ENERGY_ERR_CODE;
       updatePIndicator(gFullUpdate);
@@ -907,15 +915,21 @@ void MainDisplayTask(void *pvParameter)
       if (changes & BIT_MASK_OVP) updateStateLabel(ovpLabel, gRowData[0] & BIT_MASK_OVP);
       if (changes & BIT_MASK_OCP) updateStateLabel(ocpLabel, gRowData[0] & BIT_MASK_OCP);
       
-      if (changes & (BIT_MASK_M1 | BIT_MASK_M2 | BIT_MASK_M3 | BIT_MASK_M4 | BIT_MASK_M5)) {
-        uint8_t memIdx = 0;
-        if (gRowData[0] & BIT_MASK_M1) memIdx = 1;
-        else if (gRowData[0] & BIT_MASK_M2) memIdx = 2;
-        else if (gRowData[0] & BIT_MASK_M3) memIdx = 3;
-        else if (gRowData[0] & BIT_MASK_M4) memIdx = 4;
-        else if (gRowData[0] & BIT_MASK_M5) memIdx = 5;
-        lv_label_set_text_fmt(mLabel, "M%d", memIdx);
-      }
+      if (changes & BIT_MASK_MEMORIES) {
+        if (gRowData[0] & BIT_MASK_MODBUS) lv_label_set_text(mLabel, LV_SYMBOL_USB);  // Modbus active
+        else
+        {
+          uint8_t memIdx = 0;
+          if (gRowData[0] & BIT_MASK_M1) memIdx = 1;
+          else if (gRowData[0] & BIT_MASK_M2) memIdx = 2;
+          else if (gRowData[0] & BIT_MASK_M3) memIdx = 3;
+          else if (gRowData[0] & BIT_MASK_M4) memIdx = 4;
+          else if (gRowData[0] & BIT_MASK_M5) memIdx = 5;
+          lv_label_set_text_fmt(mLabel, "M%d", memIdx);
+        }
+//        if (memIdx != 0) lv_label_set_text_fmt(mLabel, "M%d", memIdx);
+//       else lv_label_set_text(mLabel, LV_SYMBOL_USB);  // Modbus active
+     }
 
       //---------------------  Data for oscill -------------------------------------------------
       if (gData.outputOn) {
@@ -944,7 +958,7 @@ void MainDisplayTask(void *pvParameter)
       modbus_updateGlobalData();
     if (bits & EEPROM_NEED_SAVE_PROFILE_EVENT)
       modbus_updateCurrentProfile();
-    if (bits)
+    if (bits != 0)
       xEventGroupSetBits(gModbusEepromSaveEventGroup, EEPROM_NEED_SAVE_DONE_EVENT); // notify modbus loop
 
     vTaskDelay(5);
@@ -1037,9 +1051,16 @@ void energyProgTimer_cb( TimerHandle_t xTimer )
 {
   gTimeCount++;
   if (!gDisplayBlinking) {
-    gVerifiedData.ahCount64 += ((uint64_t)gVerifiedData.iOut << 32) / 3600;
-    gVerifiedData.whCount64 += (((uint64_t)gVerifiedData.iOut * (uint64_t)gVerifiedData.uOut) << 32) / 3600000;
- }
+    if (gVerifiedData.iPointPosOut == 1) // when current is 10.00 amper
+    {
+      gVerifiedData.ahCount64 += ((uint64_t)gVerifiedData.iOut << 32) / 360;
+      gVerifiedData.whCount64 += (((uint64_t)gVerifiedData.iOut * (uint64_t)gVerifiedData.uOut) << 32) / 360000;    }
+    else
+    {
+      gVerifiedData.ahCount64 += ((uint64_t)gVerifiedData.iOut << 32) / 3600;
+      gVerifiedData.whCount64 += (((uint64_t)gVerifiedData.iOut * (uint64_t)gVerifiedData.uOut) << 32) / 3600000;      
+    }
+  }
   UpdateEnergyLabels();
 }
 //===================================================================================================

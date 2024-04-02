@@ -216,9 +216,9 @@ unsigned char checksum (unsigned char *ptr, size_t sz) {
     return chk;
 }
 //===================================================================================================
-void transmitKoradCommand(uint16_t uSet, uint16_t iSet, bool onOff, bool block)
+void transmitKoradCommand(uint16_t uSet, uint16_t iSet, bool onOff)
 {
-  if (block && gData.outputOn) return;
+  if (gModbusConnected) return;
   uart_request_t uart_tx_buffer = {
     .magicKey = 0x20AA,
     .uSet = (uSet >> 8) | (uSet << 8),
