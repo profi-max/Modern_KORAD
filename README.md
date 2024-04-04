@@ -157,7 +157,9 @@ https://htmlcompressor.com/compressor/
 
 External WiFi antenna:
 
-https://youtu.be/aBTZuvg5sM8?si=xhjO85yS21byyTkX
+https://youtu.be/aBTZuvg5sM8
+
+https://youtu.be/ckPu18lrBkE
 
 </details>
 
