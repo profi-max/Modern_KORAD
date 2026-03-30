@@ -50,6 +50,23 @@ All schematics can be found in the **Schematics** folder.
 ![My main board](/Pictures/my_board.JPG)
 ![Connection](/Schematics/Schematic_WT32_SC01.jpg)
 
+In the schematic:
+
++ **DB0** Synchronization pulse for LEDs M1, M2, M3, M4, OFF/ON, CV, CC, OCP, OVP
++ **DB1** Synchronization pulse for the most significant digit
++ **…**
++ **DB4** Synchronization pulse for the least significant digit
++ **DATA** Data
++ **CLK** Data synchronization pulses
+
++ **LS1** Built-in buzzer; connect your own transistor (NPN, 25V, 0.6A) to this point if you wish to hear audio from the development board in addition to the built-in sound.
+
+```
+WARNING!!!
+Do not connect the housing (chassis) of the KORAD power supply to the negative lead of the development board!!!
+
+When installing an external Wi-Fi antenna, ensure proper insulation between the device chassis and the antenna connector!!!
+```
 ## Programming
 You can change the user inteface using [SquareLine Studio](https://squareline.io/).
 SquareLine Studio is a wonderful product. But if you do not plan to change the user interface, you can do without SquareLine Studio. All you need is Visual Studio Code with Platformio.
