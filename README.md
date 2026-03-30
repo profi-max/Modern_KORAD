@@ -63,9 +63,11 @@ In the schematic:
 
 ```
 WARNING!!!
-Do not connect the housing (chassis) of the KORAD power supply to the negative lead of the development board!!!
+Do not connect the housing (chassis) of the KORAD power supply
+to the negative lead of the development board!!!
 
-When installing an external Wi-Fi antenna, ensure proper insulation between the device chassis and the antenna connector!!!
+When installing an external Wi-Fi antenna, ensure proper insulation 
+between the device chassis and the antenna connector!!!
 ```
 ## Programming
 You can change the user inteface using [SquareLine Studio](https://squareline.io/).
